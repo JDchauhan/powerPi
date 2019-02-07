@@ -51,25 +51,23 @@ while True:
 client.subscribe(topic= data["id"] + "/#")    
 
 while True:
-
     # 5.5
     if not wlan.isconnected():
         isBroker = False
+        print("connecting...")
         setup.networkConnect(data["ssid"], data["password"])
     else:
-        ledSignals.connected()
 
         for _ in range(3): 
             try:
                 client.publish(topic="test", msg="testing")
                 if not isBroker:
                     client.subscribe(topic= data["id"] + "/#")                     
-                print("connected")
+                # print("connected")
                 client.check_msg()
                 time.sleep(0.5)
             except:
                 isBroker = False
                 print("broker disconnected")
-                p4.high()
                 time.sleep(2)
                 break
