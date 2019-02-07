@@ -15,11 +15,14 @@ data = setup.initialize()
 
 def sub_cb(topic, msg):
     topic = topic.decode("utf-8")
-    msg = msg.decode("utf-8")
-    device = topic.split('/')[1]
+    charge = msg.decode("utf-8")
+    # ex: id/2/0
+    _, switch, isCharging = topic.split('/')
 
-    device = (int) (device)
-    powerPi.operate(device, msg)
+    switch = (int) (switch)
+    isCharging = (int) (isCharging)
+    charge = (int) (charge)
+    powerPi.operate(switch, isCharging, charge)
 
     client.check_msg()
 
